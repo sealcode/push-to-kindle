@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button send;
 
     Shared shared;
-    
+
     String from, to, url, title, domain;
     boolean doubleBack;
 
