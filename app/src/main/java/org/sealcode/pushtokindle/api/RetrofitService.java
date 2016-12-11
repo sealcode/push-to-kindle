@@ -1,7 +1,11 @@
 package org.sealcode.pushtokindle.api;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.Toast;
+
+import org.sealcode.pushtokindle.R;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,5 +38,23 @@ public class RetrofitService {
         shared = Shared.getInstance(context);
         toast =  Toast.makeText(context, "", Toast.LENGTH_LONG);
         this.context = context;
+    }
+
+    public void showToast(int id) {
+        String text = context.getString(id);
+        toast.setText(text);
+        toast.show();
+    }
+
+    public void showToast(String text) {
+        toast.setText(text);
+        toast.show();
+    }
+
+    private void enableButton() {
+        Button send = (Button) ((Activity)context).findViewById(R.id.send);
+        send.setAlpha(1f);
+        send.setClickable(true);
+        send.setEnabled(true);
     }
 }

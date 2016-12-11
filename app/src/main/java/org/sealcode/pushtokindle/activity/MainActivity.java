@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import org.sealcode.pushtokindle.R;
+import org.sealcode.pushtokindle.api.RetrofitService;
 import org.sealcode.pushtokindle.api.Shared;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,10 +18,17 @@ public class MainActivity extends AppCompatActivity {
     TextInputLayout senderLayout, receiverLayout;
     Button send;
 
+    RetrofitService retrofit;
     Shared shared;
 
     String from, to, url, title, domain;
     boolean doubleBack;
+
+    static final String SENDER_KEY = "SENDER";
+    static final String RECEIVER_KEY = "RECEIVER";
+    static final String SUBJECT_KEY = "SUBJECT";
+    static final String URL_KEY = "URL";
+    static final String BUTTON_KEY = "BUTTON";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         senderLayout = (TextInputLayout) findViewById(R.id.senderLayout);
         receiverLayout = (TextInputLayout) findViewById(R.id.receiverLayout);
         send = (Button) findViewById(R.id.send);
+
+        initObjects();
 
     }
 
@@ -51,6 +61,24 @@ public class MainActivity extends AppCompatActivity {
                 doubleBack = false;
             }
         }, 2000);
+    }
+
+    private void initObjects() {
+        retrofit = new RetrofitService(this);
+        shared = Shared.getInstance(this);
+        doubleBack = false;
+    }
+
+    private void enableButton() {
+        send.setAlpha(1f);
+        send.setClickable(true);
+        send.setEnabled(true);
+    }
+
+    private void disableButton() {
+        send.setAlpha(.5f);
+        send.setClickable(false);
+        send.setEnabled(false);
     }
 
 }
