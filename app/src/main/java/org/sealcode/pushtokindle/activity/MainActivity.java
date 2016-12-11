@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -48,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         initObjects();
         getUrl();
+        setText();
         if(url != null) retrofit.checkArticle(url);
+        setEditText();
+        setInputLayout();
 
     }
 
@@ -91,6 +95,21 @@ public class MainActivity extends AppCompatActivity {
             sender.setText(from);
             receiver.setText(to);
         }
+    }
+
+    private void setEditText() {
+        receiver.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus) setInputLayout();
+            }
+        });
+        sender.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus) setInputLayout();
+            }
+        });
     }
 
     private void setInputLayout() {
