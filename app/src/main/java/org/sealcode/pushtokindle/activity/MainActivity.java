@@ -1,5 +1,6 @@
 package org.sealcode.pushtokindle.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         send = (Button) findViewById(R.id.send);
 
         initObjects();
+        getUrl();
+        if(url != null) retrofit.checkArticle(url);
 
     }
 
@@ -67,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
         retrofit = new RetrofitService(this);
         shared = Shared.getInstance(this);
         doubleBack = false;
+    }
+
+    private void getUrl() {
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                url = intent.getStringExtra(Intent.EXTRA_TEXT);
+            }
+        }
     }
 
     private void enableButton() {
