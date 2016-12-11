@@ -1,6 +1,9 @@
 package org.sealcode.pushtokindle.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
@@ -51,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         getUrl();
         setText();
         if(url != null) retrofit.checkArticle(url);
+        setButton();
         setEditText();
         setInputLayout();
-
     }
 
     @Override
@@ -95,6 +98,24 @@ public class MainActivity extends AppCompatActivity {
             sender.setText(from);
             receiver.setText(to);
         }
+    }
+
+    private void setButton() {
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setInputLayout();
+                if(isNetworkAvailable()) {
+                    if(!from.isEmpty() && KindleData.isValidEmail(from) && !to.isEmpty() && KindleData.isReceiverValid(to)) {
+                        disableButton();
+                        retrofit.showToast(getString(R.string.sending) + to);
+                        retrofit.sendArticle(url, from, to, title, domain, KindleData.getReceiverId(to));
+                    }
+                    else retrofit.showToast(R.string.fields_empty);
+                }
+                else retrofit.showToast(R.string.turn_internet);
+            }
+        });
     }
 
     private void setEditText() {
@@ -149,4 +170,9 @@ public class MainActivity extends AppCompatActivity {
         send.setEnabled(false);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
