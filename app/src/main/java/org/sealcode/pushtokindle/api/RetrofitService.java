@@ -3,6 +3,8 @@ package org.sealcode.pushtokindle.api;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -79,6 +81,7 @@ public class RetrofitService {
     public void checkArticle(String url) {
         final ProgressDialog progressDialog;
         progressDialog = ProgressDialog.show(context, context.getString(R.string.checking), context.getString(R.string.progress), true);
+        blockOrientation();
         Call call = service.checkConversion(ACTION_CHECK, url);
         call.enqueue(new Callback() {
             @Override
@@ -93,12 +96,14 @@ public class RetrofitService {
                     e.printStackTrace();
                 }
                 progressDialog.dismiss();
+                unblockOrientation();
             }
             @Override
             public void onFailure(Call call, Throwable t) {
                 if(t.getMessage().contains(UNABLE_RESOLVE)) showToast(R.string.turn_internet);
                 else showToast(context.getString(R.string.couldnt_send) + t.getMessage());
                 progressDialog.dismiss();
+                unblockOrientation();
             }
         });
     }
@@ -119,5 +124,17 @@ public class RetrofitService {
         send.setAlpha(1f);
         send.setClickable(true);
         send.setEnabled(true);
+    }
+
+    private void blockOrientation() {
+        Activity activity = (Activity) context;
+        if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        else activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    private void unblockOrientation() {
+        Activity activity = (Activity) context;
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 }
