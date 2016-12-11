@@ -51,9 +51,12 @@ public class MainActivity extends AppCompatActivity {
         send = (Button) findViewById(R.id.send);
 
         initObjects();
-        getUrl();
-        setText();
-        if(url != null) retrofit.checkArticle(url);
+        if (savedInstanceState != null) setInstanceState(savedInstanceState);
+        else {
+            getUrl();
+            setText();
+            if(url != null) retrofit.checkArticle(url);
+        }
         setButton();
         setEditText();
         setInputLayout();
@@ -66,12 +69,39 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         doubleBack = true;
+        retrofit.showToast(R.string.action_exit);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 doubleBack = false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        from = sender.getText().toString().replaceAll("\\s+","");
+        to = receiver.getText().toString().replaceAll("\\s+","");
+        title = subject.getText().toString();
+        outState.putString(SENDER_KEY, from);
+        outState.putString(RECEIVER_KEY, from);
+        outState.putString(SUBJECT_KEY, title);
+        if(url != null) outState.putString(URL_KEY, url);
+        if(send.isEnabled()) outState.putBoolean(BUTTON_KEY, true);
+        else outState.putBoolean(BUTTON_KEY, false);
+    }
+
+    private void setInstanceState(Bundle savedInstanceState) {
+        from = savedInstanceState.getString(SENDER_KEY);
+        to = savedInstanceState.getString(RECEIVER_KEY);
+        title = savedInstanceState.getString(SUBJECT_KEY);
+        if(savedInstanceState.containsKey(URL_KEY)) url = savedInstanceState.getString(URL_KEY);
+        sender.setText(from);
+        receiver.setText(to);
+        subject.setText(title);
+        if(savedInstanceState.getBoolean(BUTTON_KEY)) enableButton();
+        else disableButton();
     }
 
     private void initObjects() {
