@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import org.sealcode.pushtokindle.R;
+import org.sealcode.pushtokindle.api.KindleData;
 import org.sealcode.pushtokindle.api.RetrofitService;
 import org.sealcode.pushtokindle.api.Shared;
 
@@ -81,6 +82,40 @@ public class MainActivity extends AppCompatActivity {
                 url = intent.getStringExtra(Intent.EXTRA_TEXT);
             }
         }
+    }
+
+    private void setText() {
+        from = shared.readSender();
+        to = shared.readReceiver();
+        if(!from.equals("none") && !to.equals("none")) {
+            sender.setText(from);
+            receiver.setText(to);
+        }
+    }
+
+    private void setInputLayout() {
+        from = sender.getText().toString().replaceAll("\\s+","");
+        to = receiver.getText().toString().replaceAll("\\s+","");
+        title = subject.getText().toString();
+        domain = KindleData.getDomain(to);
+        if(from.isEmpty()) {
+            senderLayout.setErrorEnabled(true);
+            senderLayout.setError(getString(R.string.from_empty));
+        }
+        else if(!KindleData.isValidEmail(from)) {
+            senderLayout.setErrorEnabled(true);
+            senderLayout.setError(getString(R.string.email_invalid));
+        }
+        else senderLayout.setErrorEnabled(false);
+        if(to.isEmpty()) {
+            receiverLayout.setErrorEnabled(true);
+            receiverLayout.setError(getString(R.string.to_empty));
+        }
+        else if(!KindleData.isReceiverValid(to)) {
+            receiverLayout.setErrorEnabled(true);
+            receiverLayout.setError(getString(R.string.kindle_invalid));
+        }
+        else receiverLayout.setErrorEnabled(false);
     }
 
     private void enableButton() {
