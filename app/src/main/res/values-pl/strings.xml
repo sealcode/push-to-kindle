@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_exit">Aby wyjść wciśnij WSTECZ ponownie</string>
+
+    <string name="cant_send">Ta strona nie może zostać wysłana na Twoje urządzenie Kindle</string>
+    <string name="sent">Strona została wysłana na Twoje urządzenie. Sprawdź Kindle za kilka minut</string>
+    <string name="couldnt_send">Strona nie mogła zostać wysłana z powodu: </string>
+    <string name="checking">Sprawdzanie artykułu</string>
+    <string name="progress">W trakcie…</string>
+    <string name="turn_internet">Włącz połączenie z internetem i spróbuj ponownie</string>
+
+    <string name="field_empty">Pole nie może być puste</string>
+    <string name="email_invalid">Wprowadzony email jest nieprawidłowy</string>
+    <string name="kindle_invalid">Wprowadzony email jest nieprawidłowym kontem Kindle</string>
+    <string name="sending">Wysyłanie strony do: </string>
+    <string name="fields_empty">From and to fields can not be empty</string>
+
+    <string name="view_from">Od (email)</string>
+    <string name="view_to">Do (konto Kindle)</string>
+    <string name="view_title">Tytuł (domyślnie tytuł strony)</string>
+    <string name="view_send">WYŚLIJ</string>
+</resources>

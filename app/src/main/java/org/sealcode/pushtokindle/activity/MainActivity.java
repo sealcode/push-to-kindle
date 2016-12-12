@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         }
         setButton();
         setEditText();
-        setInputLayout();
     }
 
     @Override
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         domain = KindleData.getDomain(to);
         if(from.isEmpty()) {
             senderLayout.setErrorEnabled(true);
-            senderLayout.setError(getString(R.string.from_empty));
+            senderLayout.setError(getString(R.string.field_empty));
         }
         else if(!KindleData.isValidEmail(from)) {
             senderLayout.setErrorEnabled(true);
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         else senderLayout.setErrorEnabled(false);
         if(to.isEmpty()) {
             receiverLayout.setErrorEnabled(true);
-            receiverLayout.setError(getString(R.string.to_empty));
+            receiverLayout.setError(getString(R.string.field_empty));
         }
         else if(!KindleData.isReceiverValid(to)) {
             receiverLayout.setErrorEnabled(true);

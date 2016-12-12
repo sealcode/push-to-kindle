@@ -5,20 +5,19 @@
 
     <string name="cant_send">This website can not be send to your Kindle</string>
     <string name="sent">Website has been sent on your kindle device. Check your Kindle in few minutes</string>
-    <string name="couldnt_send">Website could not be send because of </string>
-    <string name="checking">Checking your article</string>
+    <string name="couldnt_send">Website could not be send because of: </string>
+    <string name="checking">Checking article</string>
     <string name="progress">In progress…</string>
     <string name="turn_internet">Please turn on your internet connection and try again</string>
 
-    <string name="from_empty">From field can not be empty</string>
-    <string name="to_empty">To field can not be empty</string>
+    <string name="field_empty">Field can not be empty</string>
     <string name="email_invalid">Entered email is not valid</string>
     <string name="kindle_invalid">Entered email is not valid Kindle account</string>
     <string name="sending">Sending website to: </string>
     <string name="fields_empty">From and to fields can not be empty</string>
 
     <string name="view_from">From (email)</string>
-    <string name="view_to">To (kindle account)</string>
+    <string name="view_to">To (Kindle account)</string>
     <string name="view_title">Title (page title as default)</string>
     <string name="view_send">SEND</string>
 

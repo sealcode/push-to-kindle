@@ -7,8 +7,7 @@
     tools:context="org.sealcode.pushtokindle.activity.MainActivity"
     tools:showIn="@layout/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/content_main"
@@ -17,7 +16,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/top_margin"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
